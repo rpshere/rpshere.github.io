@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <title>For You 💗</title>
 
-  <!-- Avatar-like elegant font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Mixed romantic fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
       background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
-      font-family: 'Cinzel Decorative', serif;
       color: #fff;
       display: flex;
       align-items: center;
@@ -20,25 +19,20 @@
       overflow: hidden;
     }
 
-    /* Floating hearts background */
+    /* Golden glowing hearts */
     .heart {
       position: absolute;
       bottom: -40px;
-      font-size: 18px;
       opacity: 0;
       animation: floatUp linear infinite;
+      filter: drop-shadow(0 0 6px gold);
+      color: gold;
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 0;
-      }
-      10% { opacity: 0.8; }
-      100% {
-        transform: translateY(-120vh) scale(1.4);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      10% { opacity: 0.9; }
+      100% { transform: translateY(-120vh) scale(1.4); opacity: 0; }
     }
 
     .card {
@@ -47,24 +41,25 @@
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(12px);
       border-radius: 26px;
-      padding: 42px 36px;
-      max-width: 540px;
+      padding: 42px 38px;
+      max-width: 560px;
       text-align: center;
       box-shadow: 0 25px 50px rgba(0,0,0,0.25);
       animation: fadeIn 1.5s ease;
     }
 
     h1 {
+      font-family: 'Cinzel Decorative', serif;
       font-weight: 400;
       font-size: 34px;
       margin-bottom: 20px;
     }
 
     p {
+      font-family: 'Playfair Display', serif;
       font-size: 18px;
       line-height: 1.8;
       margin-bottom: 28px;
-      font-family: Georgia, serif;
     }
 
     .pulse-heart {
@@ -104,18 +99,21 @@
       box-shadow: 0 10px 25px rgba(255,255,255,0.5);
     }
 
-    /* Floating No (not clickable) */
+    /* Floating No */
     .no-float {
+      font-family: 'Playfair Display', serif;
       font-size: 18px;
       opacity: 0.7;
-      animation: noFloat 3s ease-in-out infinite;
-      pointer-events: none; /* cannot click */
+      pointer-events: none;
+      transition: transform 0.4s ease;
     }
 
-    @keyframes noFloat {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0); }
+    .signature {
+      margin-top: 25px;
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      opacity: 0.8;
+      text-align: right;
     }
 
     @keyframes fadeIn {
@@ -126,17 +124,22 @@
 </head>
 <body>
 
-  <!-- MANY floating hearts -->
+  <!-- Ambient music -->
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c7e6a1c2e.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating hearts -->
   <script>
-    const hearts = ["💗","💖","💞","💕"];
-    for (let i = 0; i < 30; i++) {
+    const hearts = ["💛","✨","💖","💫"];
+    for (let i = 0; i < 35; i++) {
       const h = document.createElement("div");
       h.className = "heart";
       h.innerText = hearts[Math.floor(Math.random()*hearts.length)];
       h.style.left = Math.random() * 100 + "vw";
       h.style.animationDuration = (6 + Math.random() * 6) + "s";
       h.style.animationDelay = Math.random() * 6 + "s";
-      h.style.fontSize = (14 + Math.random() * 18) + "px";
+      h.style.fontSize = (14 + Math.random() * 20) + "px";
       document.body.appendChild(h);
     }
   </script>
@@ -162,13 +165,30 @@
     <h1>Will you be my Valentine? 💖</h1>
 
     <div class="options">
-      <button onclick="alert('No matter what, thank you for being honest ❤️')">
+      <button onclick="playMusic(); alert('No matter what, thank you for being honest ❤️')">
         Yes 💘
       </button>
 
-      <div class="no-float">No</div>
+      <div class="no-float" id="no">No</div>
     </div>
+
+    <div class="signature">~Rps</div>
   </div>
+
+  <script>
+    function playMusic() {
+      const music = document.getElementById("music");
+      music.volume = 0.4;
+      music.play();
+    }
+
+    const no = document.getElementById("no");
+    document.addEventListener("mousemove", () => {
+      const x = Math.random() * 120 - 60;
+      const y = Math.random() * 60 - 30;
+      no.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  </script>
 
 </body>
 </html>
