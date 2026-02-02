@@ -2,13 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>For You ❤️</title>
+  <title>For You 💗</title>
+
+  <!-- Avatar-like elegant font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
       background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
-      font-family: "Georgia", serif;
+      font-family: 'Cinzel Decorative', serif;
       color: #fff;
       display: flex;
       align-items: center;
@@ -16,30 +20,21 @@
       overflow: hidden;
     }
 
-    /* Floating hearts */
-    .heart-float {
+    /* Floating hearts background */
+    .heart {
       position: absolute;
-      bottom: -20px;
-      font-size: 20px;
-      animation: floatUp 8s linear infinite;
-      opacity: 0.8;
+      bottom: -40px;
+      font-size: 18px;
+      opacity: 0;
+      animation: floatUp linear infinite;
     }
-
-    .heart-float:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .heart-float:nth-child(2) { left: 25%; animation-delay: 2s; }
-    .heart-float:nth-child(3) { left: 40%; animation-delay: 4s; }
-    .heart-float:nth-child(4) { left: 60%; animation-delay: 1s; }
-    .heart-float:nth-child(5) { left: 75%; animation-delay: 3s; }
-    .heart-float:nth-child(6) { left: 90%; animation-delay: 5s; }
 
     @keyframes floatUp {
       0% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0) scale(0.8);
         opacity: 0;
       }
-      10% {
-        opacity: 0.8;
-      }
+      10% { opacity: 0.8; }
       100% {
         transform: translateY(-120vh) scale(1.4);
         opacity: 0;
@@ -50,53 +45,77 @@
       position: relative;
       z-index: 10;
       background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      border-radius: 25px;
-      padding: 40px 35px;
-      max-width: 520px;
+      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 42px 36px;
+      max-width: 540px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
       animation: fadeIn 1.5s ease;
     }
 
     h1 {
+      font-weight: 400;
       font-size: 34px;
       margin-bottom: 20px;
-      font-weight: normal;
     }
 
     p {
       font-size: 18px;
-      line-height: 1.7;
-      margin-bottom: 25px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+      font-family: Georgia, serif;
     }
 
-    .heart {
-      font-size: 28px;
-      animation: pulse 1.5s infinite;
-      margin-bottom: 15px;
+    .pulse-heart {
+      font-size: 30px;
+      animation: pulse 1.6s infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .options {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
     }
 
     button {
       background: #fff;
       color: #ff6b81;
       border: none;
-      padding: 14px 34px;
+      padding: 14px 36px;
       font-size: 18px;
       border-radius: 30px;
       cursor: pointer;
       transition: 0.3s ease;
+      font-family: 'Cinzel Decorative', serif;
     }
 
     button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 10px 25px rgba(255,255,255,0.4);
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(255,255,255,0.5);
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-      100% { transform: scale(1); }
+    /* Floating No (not clickable) */
+    .no-float {
+      font-size: 18px;
+      opacity: 0.7;
+      animation: noFloat 3s ease-in-out infinite;
+      pointer-events: none; /* cannot click */
+    }
+
+    @keyframes noFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
     }
 
     @keyframes fadeIn {
@@ -107,16 +126,23 @@
 </head>
 <body>
 
-  <!-- Floating hearts -->
-  <div class="heart-float">💗</div>
-  <div class="heart-float">💖</div>
-  <div class="heart-float">💞</div>
-  <div class="heart-float">💗</div>
-  <div class="heart-float">💖</div>
-  <div class="heart-float">💞</div>
+  <!-- MANY floating hearts -->
+  <script>
+    const hearts = ["💗","💖","💞","💕"];
+    for (let i = 0; i < 30; i++) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerText = hearts[Math.floor(Math.random()*hearts.length)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = (6 + Math.random() * 6) + "s";
+      h.style.animationDelay = Math.random() * 6 + "s";
+      h.style.fontSize = (14 + Math.random() * 18) + "px";
+      document.body.appendChild(h);
+    }
+  </script>
 
   <div class="card">
-    <div class="heart">💗</div>
+    <div class="pulse-heart">💗</div>
 
     <h1>Hey 💗</h1>
 
@@ -135,9 +161,13 @@
 
     <h1>Will you be my Valentine? 💖</h1>
 
-    <button onclick="alert('No matter what, thank you for being honest ❤️')">
-      Yes 💘
-    </button>
+    <div class="options">
+      <button onclick="alert('No matter what, thank you for being honest ❤️')">
+        Yes 💘
+      </button>
+
+      <div class="no-float">No</div>
+    </div>
   </div>
 
 </body>
