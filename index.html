@@ -19,7 +19,7 @@
       overflow: hidden;
     }
 
-    /* Golden glowing hearts */
+    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -40px;
@@ -80,40 +80,41 @@
       justify-content: center;
       align-items: center;
       gap: 40px;
+      position: relative;
     }
 
+    /* Button style (shared) */
     button {
       background: #fff;
       color: #ff6b81;
       border: none;
-      padding: 14px 36px;
-      font-size: 18px;
-      border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 17px;
+      border-radius: 28px;
       cursor: pointer;
       transition: 0.3s ease;
       font-family: 'Cinzel Decorative', serif;
     }
 
     button:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
       box-shadow: 0 10px 25px rgba(255,255,255,0.5);
     }
 
-    /* Floating No */
-    .no-float {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 18px;
-      opacity: 0.7;
+    /* No button (looks same, can't click) */
+    #no {
+      cursor: default;
+      opacity: 0.85;
       pointer-events: none;
       transition: transform 0.4s ease;
     }
 
     .signature {
-  margin-top: 25px;
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 16px;
-  opacity: 0.8;
-  text-align: right;
+      margin-top: 25px;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 16px;
+      opacity: 0.8;
+      text-align: right;
     }
 
     @keyframes fadeIn {
@@ -124,18 +125,18 @@
 </head>
 <body>
 
-  <!-- Ambient music -->
+  <!-- Music -->
   <audio id="music" loop>
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c7e6a1c2e.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Floating golden hearts -->
+  <!-- Hearts -->
   <script>
-    const hearts = ["💓","✨","💖","💝"];
+    const hearts = ["💓","💞","🩷","❤️"];
     for (let i = 0; i < 35; i++) {
       const h = document.createElement("div");
       h.className = "heart";
-      h.innerText = hearts[Math.floor(Math.random()*hearts.length)];
+      h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
       h.style.left = Math.random() * 100 + "vw";
       h.style.animationDuration = (6 + Math.random() * 6) + "s";
       h.style.animationDelay = Math.random() * 6 + "s";
@@ -164,29 +165,49 @@
 
     <h1>Will you be my Valentine? 💖</h1>
 
-    <div class="options">
-      <button onclick="playMusic(); alert('No matter what, thank you for being honest ❤️')">
-        Yes 💘
-      </button>
+    <div class="options" id="options">
+      <button id="yesBtn" onclick="handleYes()">Yes 💘</button>
+      <button id="no">No</button>
+    </div>
 
-      <div class="no-float" id="no">No</div>
+    <!-- GIF -->
+    <div id="gifBox" style="display:none; margin-top:30px;">
+      <img
+        src="https://media3.giphy.com/media/vxph71PBDpZlgDkeXb/giphy.gif"
+        style="max-width:100%; border-radius:20px; box-shadow:0 18px 45px rgba(0,0,0,0.35);"
+      >
+      <p style="margin-top:20px; font-size:20px;">
+        <strong>Best decision ever.</strong><br>
+        Lots of love 💕
+      </p>
     </div>
 
     <div class="signature">~Rps</div>
   </div>
 
   <script>
-    function playMusic() {
+    function handleYes() {
       const music = document.getElementById("music");
       music.volume = 0.4;
       music.play();
+
+      const gif = document.getElementById("gifBox");
+      gif.style.display = "block";
+      gif.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
     const no = document.getElementById("no");
-    document.addEventListener("mousemove", () => {
-      const x = Math.random() * 120 - 60;
-      const y = Math.random() * 60 - 30;
-      no.style.transform = `translate(${x}px, ${y}px)`;
+    const yes = document.getElementById("yesBtn");
+    const options = document.getElementById("options");
+
+    options.addEventListener("mousemove", () => {
+      const yesRect = yes.getBoundingClientRect();
+      const noRect = no.getBoundingClientRect();
+
+      const moveX = (yesRect.left - noRect.left) / 2;
+      const moveY = (yesRect.top - noRect.top) / 2;
+
+      no.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
   </script>
 
