@@ -103,7 +103,7 @@
     line-height: 1.6;
   ">
     <strong>Best decision ever.</strong><br>
-    I love you 💓
+    I love you 
   </p>
 </div>
 
@@ -215,13 +215,26 @@
 
     no.style.transform = `translate(${moveX}px, ${moveY}px)`;
   });
-</script>
 <script>
+  function playMusic() {
+    const music = document.getElementById("music");
+    music.volume = 0.4;
+    music.play();
+  }
+
   function showGif() {
     const gif = document.getElementById("gifBox");
     gif.style.display = "block";
     gif.scrollIntoView({ behavior: "smooth", block: "center" });
   }
+
+  const no = document.getElementById("no");
+  document.addEventListener("mousemove", () => {
+    const x = Math.random() * 120 - 60;
+    const y = Math.random() * 60 - 30;
+    no.style.transform = `translate(${x}px, ${y}px)`;
+  });
 </script>
+
 </body>
 </html>
