@@ -83,7 +83,6 @@
       position: relative;
     }
 
-    /* Button style (shared) */
     button {
       background: #fff;
       color: #ff6b81;
@@ -101,7 +100,6 @@
       box-shadow: 0 10px 25px rgba(255,255,255,0.5);
     }
 
-    /* No button (looks same, can't click) */
     #no {
       cursor: default;
       opacity: 0.85;
@@ -109,12 +107,15 @@
       transition: transform 0.4s ease;
     }
 
+    /* UPDATED SIGNATURE */
     .signature {
-      margin-top: 25px;
+      margin-top: 30px;
       font-family: 'Cinzel Decorative', serif;
-      font-size: 16px;
-      opacity: 0.8;
+      font-size: 20px;        /* bigger */
+      font-weight: 700;       /* bolder */
+      opacity: 0.95;
       text-align: right;
+      letter-spacing: 1px;
     }
 
     @keyframes fadeIn {
@@ -170,10 +171,9 @@
       <button id="no">No</button>
     </div>
 
-    <!-- GIF -->
     <div id="gifBox" style="display:none; margin-top:30px;">
       <img
-        src="https://media3.giphy.com/media/vxph71PBDpZlgDkeXb/giphy.gif"
+        src="https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUyNm84eWZqZ3pxcGExbzA0eTltbDFkaGJ6NjFnb3FzaDl0ZDU5ajE1NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2o1Jj96YnPiJbP0YVx/giphy.gif"
         style="max-width:100%; border-radius:20px; box-shadow:0 18px 45px rgba(0,0,0,0.35);"
       >
       <p style="margin-top:20px; font-size:20px;">
