@@ -19,7 +19,7 @@
       overflow: hidden;
     }
 
-    /* Golden glowing hearts */
+    /* Floating golden hearts */
     .heart {
       position: absolute;
       bottom: -40px;
@@ -81,66 +81,41 @@
       align-items: center;
       gap: 40px;
     }
-<div id="gifBox" style="
-  display:none;
-  margin-top:35px;
-  animation: fadeIn 1.2s ease;
-">
-  <img
-    src="https://media.tenor.com/images/1f7f7b4b1b8c93b3a8a8f0a65f5e7c62/tenor.gif"
-    alt="Best decision ever"
-    style="
-      max-width:100%;
-      border-radius:20px;
-      box-shadow:0 18px 45px rgba(0,0,0,0.35);
-    "
-  >
 
-  <p style="
-    margin-top:22px;
-    font-family: 'Libre Baskerville', serif;
-    font-size: 20px;
-    line-height: 1.6;
-  ">
-    <strong>Best decision ever.</strong><br>
-    I love you 
-  </p>
-</div>
-
+    /* Medium buttons */
     button {
       background: #fff;
       color: #ff6b81;
       border: none;
-      padding: 14px 36px;
-      font-size: 18px;
-      border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 17px;
+      border-radius: 28px;
       cursor: pointer;
       transition: 0.3s ease;
       font-family: 'Cinzel Decorative', serif;
     }
 
     button:hover {
-      transform: scale(1.1);
+      transform: scale(1.08);
       box-shadow: 0 10px 25px rgba(255,255,255,0.5);
     }
 
-    /* Floating No */
+    /* No button (visible but playful) */
     .no-float {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 18px;
-  opacity: 0.8;
-  cursor: default;
-  position: relative;
-  transition: transform 0.4s ease;
-  pointer-events: none; /* cannot click */
-  }
+      font-family: 'Libre Baskerville', serif;
+      font-size: 17px;
+      opacity: 0.85;
+      position: relative;
+      user-select: none;
+      transition: transform 0.4s ease;
+    }
 
     .signature {
-  margin-top: 25px;
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 16px;
-  opacity: 0.8;
-  text-align: right;
+      margin-top: 25px;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 16px;
+      opacity: 0.8;
+      text-align: right;
     }
 
     @keyframes fadeIn {
@@ -156,7 +131,7 @@
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c7e6a1c2e.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Floating golden hearts -->
+  <!-- Floating hearts -->
   <script>
     const hearts = ["💓","✨","💖","💝"];
     for (let i = 0; i < 35; i++) {
@@ -192,49 +167,56 @@
     <h1>Will you be my Valentine? 💖</h1>
 
     <div class="options">
-      <button onclick="showGif(); playMusic();">
-  Yes 💘
-</button>
+      <button id="yesBtn" onclick="handleYes()">
+        Yes 💘
+      </button>
 
       <div class="no-float" id="no">No</div>
+    </div>
+
+    <!-- GIF appears here -->
+    <div id="gifBox" style="display:none; margin-top:30px;">
+      <img
+        src="https://media.tenor.com/images/1f7f7b4b1b8c93b3a8a8f0a65f5e7c62/tenor.gif"
+        style="max-width:100%; border-radius:20px; box-shadow:0 18px 45px rgba(0,0,0,0.35);"
+      >
+      <p style="margin-top:20px; font-size:20px;">
+        <strong>Best decision ever.</strong><br>
+        I love you 💟
+      </p>
     </div>
 
     <div class="signature">~Rps</div>
   </div>
 
   <script>
-  const no = document.getElementById("no");
-  const yes = document.querySelector("button");
+    function playMusic() {
+      const music = document.getElementById("music");
+      music.volume = 0.4;
+      music.play();
+    }
 
-  document.addEventListener("mousemove", () => {
-    const yesRect = yes.getBoundingClientRect();
-    const noRect = no.getBoundingClientRect();
+    function handleYes() {
+      playMusic();
+      const gif = document.getElementById("gifBox");
+      gif.style.display = "block";
+      gif.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
 
-    const moveX = (yesRect.left - noRect.left) / 6;
-    const moveY = (yesRect.top - noRect.top) / 6;
+    // No moves toward Yes on hover
+    const no = document.getElementById("no");
+    const yes = document.getElementById("yesBtn");
 
-    no.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  });
-<script>
-  function playMusic() {
-    const music = document.getElementById("music");
-    music.volume = 0.4;
-    music.play();
-  }
+    no.addEventListener("mouseenter", () => {
+      const yesRect = yes.getBoundingClientRect();
+      const noRect = no.getBoundingClientRect();
 
-  function showGif() {
-    const gif = document.getElementById("gifBox");
-    gif.style.display = "block";
-    gif.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
+      const moveX = (yesRect.left - noRect.left) / 2;
+      const moveY = (yesRect.top - noRect.top) / 2;
 
-  const no = document.getElementById("no");
-  document.addEventListener("mousemove", () => {
-    const x = Math.random() * 120 - 60;
-    const y = Math.random() * 60 - 30;
-    no.style.transform = `translate(${x}px, ${y}px)`;
-  });
-</script>
+      no.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  </script>
 
 </body>
 </html>
