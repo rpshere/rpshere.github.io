@@ -19,7 +19,7 @@
       overflow: hidden;
     }
 
-    /* Floating golden hearts */
+    /* Floating hearts */
     .heart {
       position: absolute;
       bottom: -40px;
@@ -80,9 +80,10 @@
       justify-content: center;
       align-items: center;
       gap: 40px;
+      position: relative;
     }
 
-    /* Medium buttons */
+    /* Button style (shared) */
     button {
       background: #fff;
       color: #ff6b81;
@@ -100,13 +101,11 @@
       box-shadow: 0 10px 25px rgba(255,255,255,0.5);
     }
 
-    /* No button (visible but playful) */
-    .no-float {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 17px;
+    /* No button (looks same, can't click) */
+    #no {
+      cursor: default;
       opacity: 0.85;
-      position: relative;
-      user-select: none;
+      pointer-events: none;
       transition: transform 0.4s ease;
     }
 
@@ -126,18 +125,18 @@
 </head>
 <body>
 
-  <!-- Ambient music -->
+  <!-- Music -->
   <audio id="music" loop>
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c7e6a1c2e.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Floating hearts -->
+  <!-- Hearts -->
   <script>
     const hearts = ["💓","💞","🩷","❤️"];
     for (let i = 0; i < 35; i++) {
       const h = document.createElement("div");
       h.className = "heart";
-      h.innerText = hearts[Math.floor(Math.random()*hearts.length)];
+      h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
       h.style.left = Math.random() * 100 + "vw";
       h.style.animationDuration = (6 + Math.random() * 6) + "s";
       h.style.animationDelay = Math.random() * 6 + "s";
@@ -166,28 +165,20 @@
 
     <h1>Will you be my Valentine? 💖</h1>
 
-    <div class="options">
-      <button id="yesBtn" onclick="handleYes()">
-        Yes 💘
-      </button>
-
-      <div class="no-float" id="no">No</div>
+    <div class="options" id="options">
+      <button id="yesBtn" onclick="handleYes()">Yes 💘</button>
+      <button id="no">No</button>
     </div>
 
-    <!-- GIF appears here -->
+    <!-- GIF -->
     <div id="gifBox" style="display:none; margin-top:30px;">
       <img
-  src="https://media3.giphy.com/media/vxph71PBDpZlgDkeXb/giphy.gif"
-  alt="Best decision ever"
-  style="
-    max-width:100%;
-    border-radius:20px;
-    box-shadow:0 18px 45px rgba(0,0,0,0.35);
-  "
->
+        src="https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyeDF6Z2UzdnVqbzFlOTV6aTVwN2N2ZTdqcWY3MTNpMnI0cnZ0OG9xbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYt5jPR6QX5pnqM/giphy.gif"
+        style="max-width:100%; border-radius:20px; box-shadow:0 18px 45px rgba(0,0,0,0.35);"
+      >
       <p style="margin-top:20px; font-size:20px;">
         <strong>Best decision ever.</strong><br>
-        Lots of love 💕 
+        Lots of love 💕
       </p>
     </div>
 
@@ -195,24 +186,21 @@
   </div>
 
   <script>
-    function playMusic() {
+    function handleYes() {
       const music = document.getElementById("music");
       music.volume = 0.4;
       music.play();
-    }
 
-    function handleYes() {
-      playMusic();
       const gif = document.getElementById("gifBox");
       gif.style.display = "block";
       gif.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
-    // No moves toward Yes on hover
     const no = document.getElementById("no");
     const yes = document.getElementById("yesBtn");
+    const options = document.getElementById("options");
 
-    no.addEventListener("mouseenter", () => {
+    options.addEventListener("mousemove", () => {
       const yesRect = yes.getBoundingClientRect();
       const noRect = no.getBoundingClientRect();
 
